@@ -100,6 +100,11 @@ to eat-wood
 end
 
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;house shape;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ; draw the selected maze elements on the view
 to draw
   if mouse-inside?
@@ -333,7 +338,7 @@ SWITCH
 132
 setup-random-flag
 setup-random-flag
-1
+0
 1
 -1000
 

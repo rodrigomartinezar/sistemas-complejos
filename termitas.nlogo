@@ -56,13 +56,21 @@ end
 ;;;;;;;;;;;;;behaviour;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 to move  ;; termites procedure
-  rt random 50
-  lt random 50
+  rt random 360
   fd 1
 end
 
 to death
   if energy < 0 [ die ]
+end
+
+to reproduce
+  if energy > energy-to-reproduce [
+    if random-float 100 > 50 [
+      set energy (energy / 2)
+      hatch 1 [ rt random-float 360 fd 1 ]
+    ]
+  ]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -148,7 +156,7 @@ initial-energy
 initial-energy
 20
 100
-50
+100
 1
 1
 NIL

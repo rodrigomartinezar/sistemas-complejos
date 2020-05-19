@@ -21,6 +21,16 @@ globals [
  global-temperature
 
 ]
+
+to setup-termites [
+
+ create-termites 100 [
+   fd random-float 4 ; let termites spread out from the center
+   set shape "bug"
+ ]
+
+]
+end
 @#$#@#$#@
 GRAPHICS-WINDOW
 210
@@ -117,8 +127,26 @@ true
 Circle -7500403 true true 96 182 108
 Circle -7500403 true true 110 127 80
 Circle -7500403 true true 110 75 80
-Line -7500403 true 150 100 80 30
-Line -7500403 true 150 100 220 30
+Line -7500403 true 150 100 120 60
+Line -7500403 true 150 100 180 60
+Line -7500403 true 180 150 225 105
+Line -7500403 true 120 150 75 105
+Line -7500403 true 120 90 90 60
+Line -7500403 true 90 60 75 30
+Line -7500403 true 180 90 210 60
+Line -7500403 true 210 60 225 30
+Line -7500403 true 180 165 210 165
+Line -7500403 true 210 165 225 180
+Line -7500403 true 225 180 240 180
+Line -7500403 true 75 180 60 180
+Line -7500403 true 90 165 75 180
+Line -7500403 true 120 165 90 165
+Line -7500403 true 180 210 210 210
+Line -7500403 true 210 210 225 240
+Line -7500403 true 225 240 240 240
+Line -7500403 true 120 210 90 210
+Line -7500403 true 90 210 75 240
+Line -7500403 true 75 240 60 240
 
 butterfly
 true

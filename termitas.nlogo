@@ -1,6 +1,26 @@
 breed [ termites termite ]
 breed [ wood_walls wood_wall ]
 breed [ no_wood_walls no_wood_wall ]
+
+termites-own [
+
+  body-temperature
+  energy
+  wings?
+
+]
+
+wood_walls-own [
+
+  wastage
+
+]
+
+globals [
+
+ global-temperature
+
+]
 @#$#@#$#@
 GRAPHICS-WINDOW
 210

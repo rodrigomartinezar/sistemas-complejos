@@ -55,7 +55,7 @@ to go
   ]
   ask termites [
     move
-    set energy energy - 1 ; looses energy while moving
+    set energy energy - 1 ; loses energy while moving
     eat-wood
     reproduce
     death
@@ -78,7 +78,7 @@ end
 to reproduce
   if energy > energy-to-reproduce [        ; if current energy is greater than energy-to-reproduce parameter, reproduce
     if random-float 100 > 50 [             ; random probability of reproducing
-      set energy (energy / 2)              ; termite looses half of the energy to reproduce
+      set energy (energy / 2)              ; termite loses half of the energy to reproduce
       hatch 1 [ rt random-float 360 fd 1 ] ; creates new termite and moves randomly away
     ]
   ]

@@ -1,4 +1,6 @@
 breed [ termites termite ]
+breed [ wood_walls wood_wall ]
+breed [ no_wood_walls no_wood_wall ]
 @#$#@#$#@
 GRAPHICS-WINDOW
 210

@@ -24,4 +24,8 @@ Repositorio para desarrollar proyecto semestral del ramo Sistemas Complejos.
 `git status` --> despliega el estado del repositorio local (cambios) <br/>
 `git add file_name` --> al haber hecho cambios y querer subirlos al repositorio remoto, add es para agregar archivos a un commit<br/>
 `git commit -m "texto descriptivo"` --> se guardan archivos cambiados en el commit bajo el texto descriptivo<br/>
-`git push` --> sube los cambios al repositorio remoto
+`git push` --> sube los cambios al repositorio remoto <br/>
+`git reset --hard origin/master` --> borrar lo hecho localmente, para volver a estar como el repo
+
+**Siempre antes de empezar a trabajar, estar al día con el repo...** <br/>
+`git pull origin master`

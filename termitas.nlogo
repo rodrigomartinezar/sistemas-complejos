@@ -36,9 +36,25 @@ to setup-termites
    set shape "bug"
    set color 37
    set wings? false
-   set energy 50
+   set energy initial-energy
  ]
 
+end
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;run-time;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+to go
+  ask termites [ move ]
+end
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;behaviour;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+to move  ;; termites procedure
+  rt random 50
+  lt random 50
+  fd 1
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -69,10 +85,10 @@ ticks
 30.0
 
 BUTTON
-55
-38
-119
+7
+24
 71
+57
 Setup
 setup
 NIL
@@ -109,11 +125,58 @@ initial-termites
 initial-termites
 1
 100
-1
+37
 1
 1
 NIL
 HORIZONTAL
+
+SLIDER
+16
+185
+188
+218
+initial-energy
+initial-energy
+20
+100
+50
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+19
+234
+191
+267
+energy-to-reproduce
+energy-to-reproduce
+50
+100
+50
+1
+1
+NIL
+HORIZONTAL
+
+BUTTON
+112
+26
+175
+59
+Go
+go
+T
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
 
 @#$#@#$#@
 ## WHAT IS IT?

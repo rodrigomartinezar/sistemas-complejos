@@ -45,7 +45,11 @@ end
 ;;;;;;;;;;;;;;run-time;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 to go
-  ask termites [ move ]
+  ask termites [
+    move
+    set energy energy - 1
+    death
+  ]
 end
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -55,6 +59,10 @@ to move  ;; termites procedure
   rt random 50
   lt random 50
   fd 1
+end
+
+to death
+  if energy < 0 [ die ]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -125,7 +133,7 @@ initial-termites
 initial-termites
 1
 100
-37
+100
 1
 1
 NIL

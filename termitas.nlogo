@@ -22,14 +22,22 @@ globals [
 
 ]
 
-to setup-termites [
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;setup;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+to setup
+  clear-all
+  setup-termites
+end
+
+to setup-termites
 
  create-termites 100 [
    fd random-float 4 ; let termites spread out from the center
    set shape "bug"
  ]
 
-]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -58,6 +66,23 @@ GRAPHICS-WINDOW
 1
 ticks
 30.0
+
+BUTTON
+55
+38
+119
+71
+Setup
+setup
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
 
 @#$#@#$#@
 ## WHAT IS IT?

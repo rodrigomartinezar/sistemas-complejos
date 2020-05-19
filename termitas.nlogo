@@ -18,8 +18,6 @@ wood_walls-own [
 
 globals [
 
- global-temperature
-
 ]
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -33,10 +31,12 @@ end
 
 to setup-termites
 
- create-termites 100 [
+ create-termites initial-termites [
    fd random-float 4 ; let termites spread out from the center
    set shape "bug"
-   set color "brown"
+   set color 37
+   set wings? false
+   set energy 50
  ]
 
 end
@@ -84,6 +84,36 @@ NIL
 NIL
 NIL
 1
+
+SLIDER
+14
+90
+186
+123
+global-temperature
+global-temperature
+0
+40
+20
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+14
+139
+186
+172
+initial-termites
+initial-termites
+1
+100
+1
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?

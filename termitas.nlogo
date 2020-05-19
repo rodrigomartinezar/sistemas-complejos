@@ -36,6 +36,7 @@ to setup-termites
  create-termites 100 [
    fd random-float 4 ; let termites spread out from the center
    set shape "bug"
+   set color "brown"
  ]
 
 end

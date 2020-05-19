@@ -56,6 +56,7 @@ to go
     move
     set energy energy - 1
     eat-wood
+    reproduce
     death
   ]
   tick

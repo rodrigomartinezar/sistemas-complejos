@@ -4,20 +4,20 @@ breed [ no_wood_walls no_wood_wall ]
 
 termites-own [
 
-  body-temperature
-  energy
-  wings?
+  body-temperature  ; temperature of termite. Changes with global temperature
+  energy            ; energy of termite. Changes with movement, reproduce or wings
+  wings?            ; default false. If true, moves faster
 
 ]
 
 wood_walls-own [
 
-  wastage
+  wastage           ; percentage of wastage. Not yet implemented
 
 ]
 
 globals [
-
+                    ; nothing yet
 ]
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -27,7 +27,7 @@ globals [
 to setup
   clear-all
   ask patches [
-    set pcolor one-of [black brown]
+    set pcolor one-of [black brown] ; sets brown patches on original world
   ]
   setup-termites
   reset-ticks
@@ -40,7 +40,7 @@ to setup-termites
    set shape "bug"
    set color 37
    set wings? false
-   set energy initial-energy
+   set energy initial-energy ; sets initial energy to value given on slider
  ]
 
 end
@@ -50,11 +50,12 @@ end
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 to go
   if count termites = 0 [
+    ; if there aren't termites, stops execution
     stop
   ]
   ask termites [
     move
-    set energy energy - 1
+    set energy energy - 1 ; looses energy while moving
     eat-wood
     reproduce
     death
@@ -66,27 +67,28 @@ end
 ;;;;;;;;;;;;;behaviour;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 to move  ;; termites procedure
-  rt random 360
+  rt random 360 ; random turn
   fd 1
 end
 
 to death
-  if energy < 0 [ die ]
+  if energy < 0 [ die ] ; termites dies if has not energy
 end
 
 to reproduce
-  if energy > energy-to-reproduce [
-    if random-float 100 > 50 [
-      set energy (energy / 2)
-      hatch 1 [ rt random-float 360 fd 1 ]
+  if energy > energy-to-reproduce [        ; if current energy is greater than energy-to-reproduce parameter, reproduce
+    if random-float 100 > 50 [             ; random probability of reproducing
+      set energy (energy / 2)              ; termite looses half of the energy to reproduce
+      hatch 1 [ rt random-float 360 fd 1 ] ; creates new termite and moves randomly away
     ]
   ]
 end
 
 to eat-wood
+  ; if current patch is brown, eat
   if pcolor = brown [
-    set pcolor white
-    set energy energy + termite-gain-from-wood
+    set pcolor white                           ; after eating, changes color to whie
+    set energy energy + termite-gain-from-wood ; increments energy by termite-gain-from-wood parameter
   ]
 end
 @#$#@#$#@

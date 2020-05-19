@@ -26,6 +26,9 @@ globals [
 
 to setup
   clear-all
+  ask patches [
+    set pcolor one-of [black brown]
+  ]
   setup-termites
   reset-ticks
 end
@@ -46,9 +49,13 @@ end
 ;;;;;;;;;;;;;;run-time;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 to go
+  if count termites = 0 [
+    stop
+  ]
   ask termites [
     move
     set energy energy - 1
+    eat-wood
     death
   ]
   tick
@@ -72,6 +79,13 @@ to reproduce
       set energy (energy / 2)
       hatch 1 [ rt random-float 360 fd 1 ]
     ]
+  ]
+end
+
+to eat-wood
+  if pcolor = brown [
+    set pcolor white
+    set energy energy + termite-gain-from-wood
   ]
 end
 @#$#@#$#@
@@ -213,6 +227,21 @@ false
 "" ""
 PENS
 "default" 1.0 0 -3889007 true "" "plot count termites"
+
+SLIDER
+19
+281
+193
+314
+termite-gain-from-wood
+termite-gain-from-wood
+1
+20
+20
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?

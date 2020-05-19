@@ -27,6 +27,7 @@ globals [
 to setup
   clear-all
   setup-termites
+  reset-ticks
 end
 
 to setup-termites
@@ -50,6 +51,7 @@ to go
     set energy energy - 1
     death
   ]
+  tick
 end
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -141,7 +143,7 @@ initial-termites
 initial-termites
 1
 100
-100
+25
 1
 1
 NIL
@@ -193,6 +195,24 @@ NIL
 NIL
 NIL
 1
+
+PLOT
+666
+15
+1035
+285
+Number of Termites
+Ticks
+Termites
+0.0
+10.0
+0.0
+10.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -3889007 true "" "plot count termites"
 
 @#$#@#$#@
 ## WHAT IS IT?

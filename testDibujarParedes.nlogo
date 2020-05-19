@@ -1,104 +1,3 @@
-breed [ termites termite ]
-breed [ wood_walls wood_wall ]
-breed [ no_wood_walls no_wood_wall ]
-
-termites-own [
-
-  body-temperature  ; temperature of termite. Changes with global temperature
-  energy            ; energy of termite. Changes with movement, reproduce or wings
-  wings?            ; default false. If true, moves faster
-
-]
-
-wood_walls-own [
-
-  wastage           ; percentage of wastage. Not yet implemented
-
-]
-
-globals [
-                    ; nothing yet
-]
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;setup;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-to setup
-  clear-all
-  if setup-random-flag = True
-  [
-    setup-random
-  ]
-  setup-termites
-  reset-ticks
-end
-
-to setup-random
-  ask patches [
-    set pcolor one-of [black brown] ; sets brown patches on original world
-  ]
-end
-
-to setup-termites
-
- create-termites initial-termites [
-   fd random-float 4 ; let termites spread out from the center
-   set shape "bug"
-   set color 37
-   set wings? false
-   set energy initial-energy ; sets initial energy to value given on slider
- ]
-
-end
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;run-time;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-to go
-  if count termites = 0 [
-    ; if there aren't termites, stops execution
-    stop
-  ]
-  ask termites [
-    move
-    set energy energy - 1 ; loses energy while moving
-    eat-wood
-    reproduce
-    death
-  ]
-  tick
-end
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;behaviour;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-to move  ;; termites procedure
-  rt random 360 ; random turn
-  fd 1
-end
-
-to death
-  if energy < 0 [ die ] ; termites dies if has not energy
-end
-
-to reproduce
-  if energy > energy-to-reproduce [        ; if current energy is greater than energy-to-reproduce parameter, reproduce
-    if random-float 100 > 50 [             ; random probability of reproducing
-      set energy (energy / 2)              ; termite loses half of the energy to reproduce
-      hatch 1 [ rt random-float 360 fd 1 ] ; creates new termite and moves randomly away
-    ]
-  ]
-end
-
-to eat-wood
-  ; if current patch is brown, eat
-  if pcolor = brown [
-    set pcolor white                           ; after eating, changes color to whie
-    set energy energy + termite-gain-from-wood ; increments energy by termite-gain-from-wood parameter
-  ]
-end
-
 
 ; draw the selected maze elements on the view
 to draw
@@ -118,11 +17,11 @@ to draw
       [
         if mouse-down?
         [
-          if [pcolor] of patch mouse-xcor mouse-ycor = black
+          if [pcolor] of patch mouse-xcor mouse-ycor = black or [pcolor] of patch mouse-xcor mouse-ycor = brown or [pcolor] of patch mouse-xcor mouse-ycor = yellow
           [
             ask patch mouse-xcor mouse-ycor
             [
-              set pcolor brown
+              set pcolor white
             ]
           ]
         ]
@@ -133,7 +32,7 @@ to draw
       [
         if mouse-down?
         [
-          if [pcolor] of patch mouse-xcor mouse-ycor = brown
+          if [pcolor] of patch mouse-xcor mouse-ycor = white
           [
             ask patch mouse-xcor mouse-ycor
             [
@@ -172,139 +71,22 @@ GRAPHICS-WINDOW
 ticks
 30.0
 
-BUTTON
-13
-31
-77
-64
-Setup
-setup
-NIL
-1
-T
-OBSERVER
-NIL
-NIL
-NIL
-NIL
-1
-
-SLIDER
-8
-306
-180
-339
-global-temperature
-global-temperature
-0
-40
+CHOOSER
 19
-1
-1
-NIL
-HORIZONTAL
-
-SLIDER
-8
-355
-180
-388
-initial-termites
-initial-termites
-1
-100
-25
-1
-1
-NIL
-HORIZONTAL
-
-SLIDER
-10
-401
-182
-434
-initial-energy
-initial-energy
-20
-100
-100
-1
-1
-NIL
-HORIZONTAL
-
-SLIDER
-13
-450
-185
-483
-energy-to-reproduce
-energy-to-reproduce
-50
-100
-50
-1
-1
-NIL
-HORIZONTAL
-
-BUTTON
-102
 29
-165
-62
-Go
-go
-T
+157
+74
+Select-element
+Select-element
+"crear pared" "eliminar pared"
 1
-T
-OBSERVER
-NIL
-NIL
-NIL
-NIL
-1
-
-PLOT
-666
-15
-1035
-285
-Number of Termites
-Ticks
-Termites
-0.0
-10.0
-0.0
-10.0
-true
-false
-"" ""
-PENS
-"default" 1.0 0 -3889007 true "" "plot count termites"
-
-SLIDER
-13
-497
-187
-530
-termite-gain-from-wood
-termite-gain-from-wood
-1
-20
-20
-1
-1
-NIL
-HORIZONTAL
 
 BUTTON
-18
-221
-175
-254
-Crear/Eliminar paredes
+13
+87
+157
+120
+Crear/Eliminar pared
 draw
 T
 1
@@ -315,27 +97,6 @@ NIL
 NIL
 NIL
 1
-
-CHOOSER
-24
-158
-162
-203
-Select-element
-Select-element
-"crear pared" "eliminar pared"
-1
-
-SWITCH
-23
-99
-181
-132
-setup-random-flag
-setup-random-flag
-1
-1
--1000
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -405,26 +166,8 @@ true
 Circle -7500403 true true 96 182 108
 Circle -7500403 true true 110 127 80
 Circle -7500403 true true 110 75 80
-Line -7500403 true 150 100 120 60
-Line -7500403 true 150 100 180 60
-Line -7500403 true 180 150 225 105
-Line -7500403 true 120 150 75 105
-Line -7500403 true 120 90 90 60
-Line -7500403 true 90 60 75 30
-Line -7500403 true 180 90 210 60
-Line -7500403 true 210 60 225 30
-Line -7500403 true 180 165 210 165
-Line -7500403 true 210 165 225 180
-Line -7500403 true 225 180 240 180
-Line -7500403 true 75 180 60 180
-Line -7500403 true 90 165 75 180
-Line -7500403 true 120 165 90 165
-Line -7500403 true 180 210 210 210
-Line -7500403 true 210 210 225 240
-Line -7500403 true 225 240 240 240
-Line -7500403 true 120 210 90 210
-Line -7500403 true 90 210 75 240
-Line -7500403 true 75 240 60 240
+Line -7500403 true 150 100 80 30
+Line -7500403 true 150 100 220 30
 
 butterfly
 true

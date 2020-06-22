@@ -255,10 +255,10 @@ NIL
 HORIZONTAL
 
 BUTTON
-102
-29
-165
-62
+101
+53
+164
+86
 Go
 go
 T
@@ -341,6 +341,23 @@ setup-random-flag
 0
 1
 -1000
+
+BUTTON
+100
+11
+185
+44
+Go 1 step
+go
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
 
 @#$#@#$#@
 ## WHAT IS IT?

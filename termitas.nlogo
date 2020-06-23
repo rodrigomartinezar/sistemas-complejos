@@ -47,6 +47,7 @@ to setup-termites
    set shape "bug"
    set color 37
    set wings? false
+   set body-temperature 25
    set energy initial-energy ; sets initial energy to value given on slider
  ]
 
@@ -87,6 +88,8 @@ end
 
 to death
   if energy < 0 [ die ] ; termites dies if has not energy
+  if body-temperature < 10 [die] ; TODO verificar
+  if body-temperature > 35 [die] ; termites die if temperature
 end
 
 to reproduce
@@ -210,7 +213,7 @@ global-temperature
 global-temperature
 0
 40
-19
+40
 1
 1
 NIL
@@ -345,7 +348,7 @@ SWITCH
 132
 setup-random-flag
 setup-random-flag
-1
+0
 1
 -1000
 

@@ -329,7 +329,7 @@ CHOOSER
 Select-element
 Select-element
 "crear pared" "eliminar pared"
-1
+0
 
 SWITCH
 23
@@ -338,7 +338,7 @@ SWITCH
 132
 setup-random-flag
 setup-random-flag
-0
+1
 1
 -1000
 

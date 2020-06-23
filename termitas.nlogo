@@ -39,11 +39,29 @@ to setup-random
   ;  set pcolor one-of [black brown] ; sets brown patches on original world
   ;]
 
-  create-wood-walls 100 [
-    setxy random-pxcor random-pycor
-    set shape "square"
-    set color 27
-  ]
+  ;create-wood-walls 50 [
+   ; setxy random-pxcor random-pycor
+    ;set shape "square"
+    ;set color 37
+  ;]
+
+  ask patches [
+    let x random-float 100
+    if x < 25 [
+      sprout-wood-walls 1[
+      set shape "square"
+      set color 27
+      ]
+     ]
+
+    if x > 24 [
+      sprout-no-wood-walls 1[
+      set shape "square"
+      set color 47
+      ]
+     ]
+
+   ]
 end
 
 to setup-termites

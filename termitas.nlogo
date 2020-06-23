@@ -1,6 +1,6 @@
 breed [ termites termite ]
-breed [ wood_walls wood_wall ]
-breed [ no_wood_walls no_wood_wall ]
+breed [ wood-walls wood-wall ]
+breed [ no-wood-walls no-wood-wall ]
 
 termites-own [
 
@@ -10,14 +10,14 @@ termites-own [
 
 ]
 
-wood_walls-own [
+wood-walls-own [
 
   wastage           ; percentage of wastage. Not yet implemented
 
 ]
 
 globals [
-                    ; nothing yet
+  ; global-temperature is initialize in interface
 ]
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -35,8 +35,14 @@ to setup
 end
 
 to setup-random
-  ask patches [
-    set pcolor one-of [black brown] ; sets brown patches on original world
+  ;ask patches [
+  ;  set pcolor one-of [black brown] ; sets brown patches on original world
+  ;]
+
+  create-wood-walls 100 [
+    setxy random-pxcor random-pycor
+    set shape "square"
+    set color 27
   ]
 end
 
@@ -47,6 +53,7 @@ to setup-termites
    set shape "bug"
    set color 37
    set wings? false
+   set body-temperature 25
    set energy initial-energy ; sets initial energy to value given on slider
  ]
 
@@ -78,8 +85,17 @@ to move  ;; termites procedure
   fd 1
 end
 
+to change-body-temperature
+  if global-temperature > body-temperature
+      [set body-temperature body-temperature + 1]
+  if global-temperature < body-temperature
+      [set body-temperature body-temperature - 1]
+end
+
 to death
   if energy < 0 [ die ] ; termites dies if has not energy
+  if body-temperature < 10 [die] ; TODO verificar
+  if body-temperature > 35 [die] ; termites die if temperature
 end
 
 to reproduce
@@ -203,7 +219,7 @@ global-temperature
 global-temperature
 0
 40
-19
+40
 1
 1
 NIL
@@ -329,7 +345,7 @@ CHOOSER
 Select-element
 Select-element
 "crear pared" "eliminar pared"
-1
+0
 
 SWITCH
 23

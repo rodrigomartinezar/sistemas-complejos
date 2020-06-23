@@ -17,7 +17,7 @@ wood_walls-own [
 ]
 
 globals [
-                    ; nothing yet
+  ; global-temperature is initialize in interface
 ]
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -76,6 +76,13 @@ end
 to move  ;; termites procedure
   rt random 360 ; random turn
   fd 1
+end
+
+to change-body-temperature
+  if global-temperature > body-temperature
+      [set body-temperature body-temperature + 1]
+  if global-temperature < body-temperature
+      [set body-temperature body-temperature - 1]
 end
 
 to death

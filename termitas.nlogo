@@ -17,7 +17,7 @@ wood-walls-own [
 ]
 
 globals [
-  ; global-temperature is initialize in interface
+  total-wood-walls
 ]
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -26,11 +26,13 @@ globals [
 
 to setup
   clear-all
+  setup-termites
+  set total-wood-walls 0
   if setup-random-flag = True
   [
     setup-random
   ]
-  setup-termites
+
   reset-ticks
 end
 
@@ -39,10 +41,25 @@ to setup-random
   ;  set pcolor one-of [black brown] ; sets brown patches on original world
   ;]
 
-  create-wood-walls 100 [
-    setxy random-pxcor random-pycor
-    set shape "square"
-    set color 27
+  ask patches [
+
+    let x random-float 100
+
+    if x < 25 [
+      sprout-wood-walls 1 [
+        set shape "square"
+        set color 27
+        set wastage 100
+      ]
+      set total-wood-walls total-wood-walls + 1
+    ]
+
+    if (x > 24) and (x < 50) [
+      sprout-no-wood-walls 1 [
+        set shape "square"
+        set color 47
+      ]
+    ]
   ]
 end
 
@@ -74,6 +91,9 @@ to go
     reproduce
     death
   ]
+  ask wood-walls [
+    eaten-wall
+  ]
   tick
 end
 
@@ -86,10 +106,14 @@ to move  ;; termites procedure
 end
 
 to change-body-temperature
-  if global-temperature > body-temperature
+
+  if not any? wood-walls-here or not any? no-wood-walls-here
+  [
+    if global-temperature > body-temperature
       [set body-temperature body-temperature + 1]
-  if global-temperature < body-temperature
+    if global-temperature < body-temperature
       [set body-temperature body-temperature - 1]
+  ]
 end
 
 to death
@@ -109,12 +133,25 @@ end
 
 to eat-wood
   ; if current patch is brown, eat
-  if pcolor = brown [
-    set pcolor white                           ; after eating, changes color to whie
-    set energy energy + termite-gain-from-wood ; increments energy by termite-gain-from-wood parameter
-  ]
+  ;if pcolor = brown [
+  ;  set pcolor white                           ; after eating, changes color to whie
+  ;  set energy energy + termite-gain-from-wood ; increments energy by termite-gain-from-wood parameter
+  ;]
+
+  if any? wood-walls-here [
+     set energy energy + termite-gain-from-wood
+
+   ]
 end
 
+
+to eaten-wall
+   if any? termites-here
+   [ set wastage wastage - termite-gain-from-wood ]
+
+   if wastage < 1
+   [die]
+end
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -143,7 +180,14 @@ to draw
           [
             ask patch mouse-xcor mouse-ycor
             [
-              set pcolor brown
+              if not any? wood-walls-here [
+                sprout-wood-walls 1 [
+                  set shape "square"
+                  set color 27
+                  set wastage 100
+                  set total-wood-walls total-wood-walls + 1
+                ]
+              ]
             ]
           ]
         ]
@@ -154,11 +198,12 @@ to draw
       [
         if mouse-down?
         [
-          if [pcolor] of patch mouse-xcor mouse-ycor = brown
+          if [any? wood-walls] of patch mouse-xcor mouse-ycor
           [
             ask patch mouse-xcor mouse-ycor
             [
-              set pcolor black
+              ask wood-walls-here [die]
+              set total-wood-walls total-wood-walls - 1
             ]
           ]
         ]
@@ -219,7 +264,7 @@ global-temperature
 global-temperature
 0
 40
-40
+25
 1
 1
 NIL
@@ -314,7 +359,7 @@ termite-gain-from-wood
 termite-gain-from-wood
 1
 20
-20
+10
 1
 1
 NIL
@@ -354,7 +399,7 @@ SWITCH
 132
 setup-random-flag
 setup-random-flag
-0
+1
 1
 -1000
 
@@ -374,6 +419,24 @@ NIL
 NIL
 NIL
 1
+
+PLOT
+666
+291
+1040
+542
+Madera Restante
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot count wood-walls"
 
 @#$#@#$#@
 ## WHAT IS IT?

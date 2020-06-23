@@ -1,6 +1,6 @@
 breed [ termites termite ]
-breed [ wood_walls wood_wall ]
-breed [ no_wood_walls no_wood_wall ]
+breed [ wood-walls wood-wall ]
+breed [ no-wood-walls no-wood-wall ]
 
 termites-own [
 
@@ -10,7 +10,7 @@ termites-own [
 
 ]
 
-wood_walls-own [
+wood-walls-own [
 
   wastage           ; percentage of wastage. Not yet implemented
 
@@ -35,8 +35,14 @@ to setup
 end
 
 to setup-random
-  ask patches [
-    set pcolor one-of [black brown] ; sets brown patches on original world
+  ;ask patches [
+  ;  set pcolor one-of [black brown] ; sets brown patches on original world
+  ;]
+
+  create-wood-walls 100 [
+    setxy random-pxcor random-pycor
+    set shape "square"
+    set color 27
   ]
 end
 

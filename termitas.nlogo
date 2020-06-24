@@ -399,7 +399,7 @@ SWITCH
 132
 setup-random-flag
 setup-random-flag
-1
+0
 1
 -1000
 
@@ -425,18 +425,18 @@ PLOT
 291
 1040
 542
-Madera Restante
+% Madera Restante
 NIL
 NIL
 0.0
 10.0
 0.0
-10.0
+100.0
 true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot count wood-walls"
+"default" 1.0 0 -16777216 true "" "plot (count wood-walls) / total-wood-walls * 100"
 
 @#$#@#$#@
 ## WHAT IS IT?

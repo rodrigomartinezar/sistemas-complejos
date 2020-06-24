@@ -45,19 +45,19 @@ to setup-random
 
     let x random-float 100
 
-    if x < 25 [
+    if x < wood-percentage [
       sprout-wood-walls 1 [
         set shape "square"
-        set color 27
+        set color 34
         set wastage 100
       ]
       set total-wood-walls total-wood-walls + 1
     ]
 
-    if (x > 24) and (x < 50) [
+    if (x > wood-percentage - 1) and (x < 50) [
       sprout-no-wood-walls 1 [
         set shape "square"
-        set color 47
+        set color 5
       ]
     ]
   ]
@@ -65,7 +65,7 @@ end
 
 to setup-termites
 
- create-termites initial-termites [
+ create-termites 2 [
    fd random-float 4 ; let termites spread out from the center
    set shape "bug"
    set color 37
@@ -102,12 +102,13 @@ end
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 to move  ;; termites procedure
   rt random 360 ; random turn
-  fd 1
+  if not any? no-wood-walls-on patch-ahead 1
+  [ fd 1 ]
 end
 
 to change-body-temperature
 
-  if not any? wood-walls-here or not any? no-wood-walls-here
+  if not any? wood-walls-here
   [
     if global-temperature > body-temperature
       [set body-temperature body-temperature + 1]
@@ -264,7 +265,7 @@ global-temperature
 global-temperature
 0
 40
-25
+40
 1
 1
 NIL
@@ -275,41 +276,41 @@ SLIDER
 355
 180
 388
-initial-termites
-initial-termites
+wood-percentage
+wood-percentage
 1
-100
-25
+50
+28
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-10
-401
-182
-434
+6
+460
+178
+493
 initial-energy
 initial-energy
 20
 100
-100
+50
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
-13
-450
-185
-483
+9
+509
+181
+542
 energy-to-reproduce
 energy-to-reproduce
 50
 100
-50
+80
 1
 1
 NIL
@@ -351,15 +352,15 @@ PENS
 "default" 1.0 0 -3889007 true "" "plot count termites"
 
 SLIDER
-13
-497
-187
-530
+11
+404
+185
+437
 termite-gain-from-wood
 termite-gain-from-wood
-1
-20
-10
+3
+5
+4
 1
 1
 NIL

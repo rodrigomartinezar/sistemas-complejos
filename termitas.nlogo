@@ -265,7 +265,7 @@ global-temperature
 global-temperature
 0
 40
-40
+0
 1
 1
 NIL
@@ -280,7 +280,7 @@ wood-percentage
 wood-percentage
 1
 50
-28
+25
 1
 1
 NIL

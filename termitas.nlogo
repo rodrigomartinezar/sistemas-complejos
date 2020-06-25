@@ -180,7 +180,7 @@ to draw
               if not any? wood-walls-here [
                 sprout-wood-walls 1 [
                   set shape "square"
-                  set color 27
+                  set color 34
                   set wastage 100
                   set total-wood-walls total-wood-walls + 1
                 ]
@@ -261,7 +261,7 @@ global-temperature
 global-temperature
 0
 40
-0
+40
 1
 1
 NIL
@@ -276,7 +276,7 @@ wood-percentage
 wood-percentage
 1
 50
-50
+5
 1
 1
 NIL
@@ -306,7 +306,7 @@ energy-to-reproduce
 energy-to-reproduce
 50
 100
-80
+100
 1
 1
 NIL
@@ -356,7 +356,7 @@ termite-gain-from-wood
 termite-gain-from-wood
 3
 5
-3
+5
 1
 1
 NIL

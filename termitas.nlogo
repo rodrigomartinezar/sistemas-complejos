@@ -107,14 +107,10 @@ to move  ;; termites procedure
 end
 
 to change-body-temperature
-
-  if not any? wood-walls-here
-  [
     if global-temperature > body-temperature
       [set body-temperature body-temperature + 1]
     if global-temperature < body-temperature
       [set body-temperature body-temperature - 1]
-  ]
 end
 
 to death
@@ -280,7 +276,7 @@ wood-percentage
 wood-percentage
 1
 50
-25
+50
 1
 1
 NIL
@@ -360,7 +356,7 @@ termite-gain-from-wood
 termite-gain-from-wood
 3
 5
-4
+3
 1
 1
 NIL

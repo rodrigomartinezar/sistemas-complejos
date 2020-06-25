@@ -28,11 +28,14 @@ to setup
   clear-all
   setup-termites
   set total-wood-walls 0
-  if setup-random-flag = True
+  ifelse setup-random-flag = True
   [
-    ;setup-random
+    setup-random
+  ]
+  [
     setup-cross
   ]
+
 
   reset-ticks
 end
@@ -44,7 +47,7 @@ to setup-random
 
   ask patches [
 
-    let x random-float 100
+    let x random-float 200
 
     if x < wood-percentage [
       sprout-wood-walls 1 [
@@ -55,7 +58,7 @@ to setup-random
       set total-wood-walls total-wood-walls + 1
     ]
 
-    if (x > wood-percentage - 1) and (x < 50) [
+    if (x > wood-percentage - 1) and (x < 100) [
       sprout-no-wood-walls 1 [
         set shape "square"
         set color 5
@@ -65,43 +68,71 @@ to setup-random
 end
 
 to setup-cross
-  ask patches with [pxcor = 0] [
-      sprout-wood-walls 1 [
-         set shape "square"
-         set color 34
-         set wastage 100
-         set total-wood-walls total-wood-walls + 1
-     ]
-   ]
+  ;ask patches with [pxcor = 0] [
+   ;   let x random-float 100
+   ;
+   ;   ifelse x < wood-percentage [
+   ;   sprout-wood-walls 1 [
+   ;      set shape "square"
+   ;      set color 34
+   ;      set wastage 100
+   ;      set total-wood-walls total-wood-walls + 1
+   ;   ]
+   ;  ]
+   ;  [
+   ;   sprout-no-wood-walls 1 [
+   ;      set shape "square"
+   ;      set color 5
+   ;   ]
+   ;    ]
+   ;]
 
-  ask patches with [pycor = 0 and pxcor != 0] [
-      sprout-wood-walls 1 [
-         set shape "square"
-         set color 34
-         set wastage 100
-         set total-wood-walls total-wood-walls + 1
-     ]
-  ]
-   ask patches with [pycor = -16 or pycor = 16 or pycor = 8 or pycor = -8 and pxcor != 0] [
+  ;ask patches with [pycor = 0 and pxcor != 0] [
+  ;    sprout-wood-walls 1 [
+  ;       set shape "square"
+  ;       set color 34
+  ;       set wastage 100
+  ;       set total-wood-walls total-wood-walls + 1
+  ;   ]
+  ;]
+   ask patches with [pycor = -16 or pycor = 16 or pycor = 8 or pycor = -8 or pycor = 0] [
+     let x random-float 100
      if not any? wood-walls-here[
-      sprout-wood-walls 1 [
-         set shape "square"
-         set color 34
-         set wastage 100
-         set total-wood-walls total-wood-walls + 1
-     ]
-     ]
-   ]
-
-   ask patches with [pxcor = -16 or pxcor = 16 or pxcor = -8 or pxcor = 8 and pycor != 0] [
-      if not any? wood-walls-here [
-      sprout-wood-walls 1 [
-         set shape "square"
-         set color 34
-         set wastage 100
-         set total-wood-walls total-wood-walls + 1
-     ]
+      ifelse x < wood-percentage [
+        sprout-wood-walls 1 [
+          set shape "square"
+          set color 34
+          set wastage 100
+          set total-wood-walls total-wood-walls + 1
       ]
+     ]
+     [
+      sprout-no-wood-walls 1 [
+         set shape "square"
+         set color 5
+      ]
+       ]
+   ]
+ ]
+
+   ask patches with [pxcor = -16 or pxcor = 16 or pxcor = -8 or pxcor = 8 or pxcor = 0 and pycor != 0] [
+     let x random-float 100
+     if not any? wood-walls-here[
+      ifelse x < wood-percentage [
+        sprout-wood-walls 1 [
+          set shape "square"
+          set color 34
+          set wastage 100
+          set total-wood-walls total-wood-walls + 1
+      ]
+     ]
+     [
+      sprout-no-wood-walls 1 [
+         set shape "square"
+         set color 5
+      ]
+       ]
+   ]
    ]
 end
 
@@ -316,7 +347,7 @@ global-temperature
 global-temperature
 0
 40
-35
+25
 1
 1
 NIL
@@ -330,8 +361,8 @@ SLIDER
 wood-percentage
 wood-percentage
 1
-50
-32
+100
+91
 1
 1
 NIL
@@ -346,7 +377,7 @@ initial-energy
 initial-energy
 20
 100
-50
+60
 1
 1
 NIL
@@ -361,7 +392,7 @@ energy-to-reproduce
 energy-to-reproduce
 50
 100
-80
+90
 1
 1
 NIL
@@ -451,7 +482,7 @@ SWITCH
 132
 setup-random-flag
 setup-random-flag
-0
+1
 1
 -1000
 

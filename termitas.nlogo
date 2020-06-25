@@ -30,7 +30,8 @@ to setup
   set total-wood-walls 0
   if setup-random-flag = True
   [
-    setup-random
+    ;setup-random
+    setup-cross
   ]
 
   reset-ticks
@@ -63,6 +64,47 @@ to setup-random
   ]
 end
 
+to setup-cross
+  ask patches with [pxcor = 0] [
+      sprout-wood-walls 1 [
+         set shape "square"
+         set color 34
+         set wastage 100
+         set total-wood-walls total-wood-walls + 1
+     ]
+   ]
+
+  ask patches with [pycor = 0 and pxcor != 0] [
+      sprout-wood-walls 1 [
+         set shape "square"
+         set color 34
+         set wastage 100
+         set total-wood-walls total-wood-walls + 1
+     ]
+  ]
+   ask patches with [pycor = -16 or pycor = 16 or pycor = 8 or pycor = -8 and pxcor != 0] [
+     if not any? wood-walls-here[
+      sprout-wood-walls 1 [
+         set shape "square"
+         set color 34
+         set wastage 100
+         set total-wood-walls total-wood-walls + 1
+     ]
+     ]
+   ]
+
+   ask patches with [pxcor = -16 or pxcor = 16 or pxcor = -8 or pxcor = 8 and pycor != 0] [
+      if not any? wood-walls-here [
+      sprout-wood-walls 1 [
+         set shape "square"
+         set color 34
+         set wastage 100
+         set total-wood-walls total-wood-walls + 1
+     ]
+      ]
+   ]
+end
+
 to setup-termites
 
  create-termites 2 [
@@ -86,6 +128,7 @@ to go
   ]
   ask termites [
     move
+    change-body-temperature
     set energy energy - 1 ; loses energy while moving
     eat-wood
     reproduce
@@ -102,15 +145,27 @@ end
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 to move  ;; termites procedure
   rt random 360 ; random turn
-  if not any? no-wood-walls-on patch-ahead 1
-  [ fd 1 ]
+
+  if patch-ahead 1 != nobody [
+    if not any? no-wood-walls-on patch-ahead 1
+    [ fd 1 ]
+  ]
 end
 
 to change-body-temperature
-    if global-temperature > body-temperature
+
+    ifelse not any? wood-walls-here [
+      if global-temperature > body-temperature
       [set body-temperature body-temperature + 1]
-    if global-temperature < body-temperature
+      if global-temperature < body-temperature
       [set body-temperature body-temperature - 1]
+    ]
+    [
+      if global-temperature > body-temperature
+      [set body-temperature body-temperature - 2]
+      if global-temperature < body-temperature
+      [set body-temperature body-temperature + 2]
+      ]
 end
 
 to death
@@ -222,8 +277,8 @@ GRAPHICS-WINDOW
 1
 1
 0
-1
-1
+0
+0
 1
 -16
 16
@@ -261,7 +316,7 @@ global-temperature
 global-temperature
 0
 40
-40
+35
 1
 1
 NIL
@@ -276,7 +331,7 @@ wood-percentage
 wood-percentage
 1
 50
-5
+32
 1
 1
 NIL
@@ -306,7 +361,7 @@ energy-to-reproduce
 energy-to-reproduce
 50
 100
-100
+80
 1
 1
 NIL
@@ -356,7 +411,7 @@ termite-gain-from-wood
 termite-gain-from-wood
 3
 5
-5
+4
 1
 1
 NIL

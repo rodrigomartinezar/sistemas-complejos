@@ -95,7 +95,7 @@ to setup-cross
   ;       set total-wood-walls total-wood-walls + 1
   ;   ]
   ;]
-   ask patches with [pycor = -16 or pycor = 16 or pycor = 8 or pycor = -8 or pycor = 0] [
+   ask patches with [pycor = -16 or pycor = 16 or pycor = 8 or pycor = -8 or pycor = 0 or pycor = -4 or pycor = 4 or pycor = -12 or pycor = 12] [
      let x random-float 100
      if not any? wood-walls-here[
       ifelse x < wood-percentage [
@@ -115,7 +115,7 @@ to setup-cross
    ]
  ]
 
-   ask patches with [pxcor = -16 or pxcor = 16 or pxcor = -8 or pxcor = 8 or pxcor = 0 and pycor != 0] [
+   ask patches with [pxcor = -16 or pxcor = 16 or pxcor = -8 or pxcor = 8 or pxcor = 0 and pycor != 0 or pxcor = -4 or pxcor = 4 or pxcor = -12 or pxcor = 12] [
      let x random-float 100
      if not any? wood-walls-here[
       ifelse x < wood-percentage [
@@ -362,7 +362,7 @@ wood-percentage
 wood-percentage
 1
 100
-91
+80
 1
 1
 NIL
@@ -392,7 +392,7 @@ energy-to-reproduce
 energy-to-reproduce
 50
 100
-90
+80
 1
 1
 NIL
@@ -442,7 +442,7 @@ termite-gain-from-wood
 termite-gain-from-wood
 3
 5
-4
+5
 1
 1
 NIL
@@ -520,6 +520,17 @@ false
 "" ""
 PENS
 "default" 1.0 0 -16777216 true "" "plot (count wood-walls) / total-wood-walls * 100"
+
+MONITOR
+518
+495
+643
+540
+% Madera Restante
+(count wood-walls) / total-wood-walls * 100
+2
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
@@ -886,6 +897,35 @@ NetLogo 5.3.1
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
+<experiments>
+  <experiment name="experiment" repetitions="4" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="2000"/>
+    <metric>(count wood-walls) / total-wood-walls * 100</metric>
+    <enumeratedValueSet variable="setup-random-flag">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-energy">
+      <value value="60"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="energy-to-reproduce">
+      <value value="80"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="global-temperature">
+      <value value="25"/>
+      <value value="40"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="wood-percentage">
+      <value value="40"/>
+      <value value="80"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="termite-gain-from-wood">
+      <value value="4"/>
+      <value value="5"/>
+    </enumeratedValueSet>
+  </experiment>
+</experiments>
 @#$#@#$#@
 @#$#@#$#@
 default
